@@ -20,31 +20,31 @@
     <div class="canvas-container">
 
         <canvas id="canvas" width="500" height="500"></canvas>
-        <input type="text" id="textInput" placeholder="Enter Text">
-        <button onclick="submitText()">Submit Text</button>
+        <input onchange="drawText()" type="text" id="textInput" placeholder="Enter Text">
+        <input oninput="onChangeColor()" type="color" id="colorInput">
     </div>
 
 
     <section class="img-container">
         <h3>Select an image</h3>
-        <img src="imgs/1.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/2.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/3.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/4.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/5.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/6.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/7.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/8.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/9.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/10.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/11.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/12.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/13.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/14.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/15.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/16.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/17.jpg" onclick="onSelectImg(this)" />
-        <img src="imgs/18.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="1" src="imgs/1.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="2" src="imgs/2.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="3" src="imgs/3.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="4" src="imgs/4.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="5" src="imgs/5.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="6" src="imgs/6.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="7" src="imgs/7.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="8" src="imgs/8.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="9" src="imgs/9.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="10" src="imgs/10.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="11" src="imgs/11.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="12" src="imgs/12.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="13" src="imgs/13.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="14" src="imgs/14.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="15" src="imgs/15.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="16" src="imgs/16.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="17" src="imgs/17.jpg" onclick="onSelectImg(this)" />
+        <img data-img-id="18" src="imgs/18.jpg" onclick="onSelectImg(this)" />
     </section>
 
     <script src="js/memeService.js"></script>

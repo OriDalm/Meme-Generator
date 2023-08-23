@@ -1,6 +1,7 @@
 'use strict'
 var gCtx
 var gElCanvas
+var gColor
 
 function onInit() {
     gElCanvas = document.querySelector('canvas')
@@ -11,36 +12,61 @@ function onInit() {
 }
 
 function renderCanvas() {
-    renderMeme()
-    drawText()
+    gCtx.fillStyle = '#858181'
+    gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
+
+    if (gMeme.selectedImgId !== null) {
+        var img = new Image()
+        img.src = `imgs/${gMeme.selectedImgId}.jpg`
+        img.onload = function () {
+            renderMeme(img)
+        }
+    }
 }
 
 function renderMeme(elImg) {
     gElCanvas.height = (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width
     gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-    
+    onSetLine()
 }
 
 function onSelectImg(elImg) {
+    const selectedImgId = parseInt(elImg.getAttribute('data-img-id'))
+    gMeme.selectedImgId = selectedImgId
     renderMeme(elImg)
     displayCanvas()
 }
 
-function drawText( txt, color, size) {
-    var canvas = document.getElementById("canvas");
-    var context = canvas.getContext("2d");
-    context.fillStyle = color
-    context.font = `${size}px Ariel`
-    context.textAlign = 'center'
-    context.fillText(txt, canvas.width / 2, canvas.height - 20)
+function onChangeColor() {
+    var colorBox = document.getElementById('colorInput')
+    gColor = colorBox.value
+    gMeme.lines[gMeme.selectedLineIdx].color = gColor
+    onSetLine()
 
 }
 
-function submitText() {
+// function onSetLine() {
+//     gMeme.lines[gMeme.selectedLineIdx].txt = ''
+//     renderCanvas()
+// }
+
+function drawText() {
     var textBox = document.getElementById('textInput')
     var newText = textBox.value
     gMeme.lines[gMeme.selectedLineIdx].txt = newText
+    onSetLine(newText)
     renderCanvas()
+}
+
+function onSetLine() {
+    gCtx.fillStyle = gMeme.lines[gMeme.selectedLineIdx].color
+    gCtx.font = gMeme.lines[gMeme.selectedLineIdx].size + 'px Arial'
+    gCtx.textAlign = 'center'
+    gCtx.fillText (gMeme.lines[gMeme.selectedLineIdx].txt, canvas.width / 2, canvas.height - gMeme.lines[gMeme.selectedLineIdx].size)
+}
+
+function changeSize(x, y, size) {
+
 }
 
 function displayImage() {

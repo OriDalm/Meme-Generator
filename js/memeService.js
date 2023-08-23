@@ -24,11 +24,12 @@ var gImgs = [
 
 function createMeme() {
     gMeme = {
-        selectedImgId: 1,
+        selectedImgId: 0,
         selectedLineIdx: 0,
         lines: [
             {
-                txt: 'I sometimes eat Falafel',
+                
+                txt: '',
                 size: 20,
                 color: 'red'
             }
@@ -40,3 +41,6 @@ function getMeme() {
     return gMeme
 }
 
+// function isTextClicked(clickedPos) {
+//     const {pos} = 
+// }

@@ -45,6 +45,7 @@ canvas {
 
 .nav-container .gallery {
     margin-inline-end: 250px;
+    cursor:pointer
 }
 
 img {
