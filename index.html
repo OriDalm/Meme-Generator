@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="onInit()">
+    <header class="main-header">
+        <nav class="nav-container">
+            <div class="logo">Logo</div>
+            <a onclick="displayImage()" class="gallery">Gallery</a>
+        </nav>
+
+    </header>
+
+    <div class="canvas-container">
+
+        <canvas id="canvas" width="500" height="500"></canvas>
+        <input type="text" id="textInput" placeholder="Enter Text">
+        <button onclick="submitText()">Submit Text</button>
+    </div>
+
+
+    <section class="img-container">
+        <h3>Select an image</h3>
+        <img src="imgs/1.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/2.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/3.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/4.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/5.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/6.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/7.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/8.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/9.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/10.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/11.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/12.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/13.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/14.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/15.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/16.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/17.jpg" onclick="onSelectImg(this)" />
+        <img src="imgs/18.jpg" onclick="onSelectImg(this)" />
+    </section>
+
+    <script src="js/memeService.js"></script>
+    <script src="js/memeController.js"></script>
+</body>
+
+</html>
