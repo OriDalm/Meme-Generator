@@ -20,8 +20,24 @@
     <div class="canvas-container">
 
         <canvas id="canvas" width="500" height="500"></canvas>
-        <input onchange="drawText()" type="text" id="textInput" placeholder="Enter Text">
-        <input oninput="onChangeColor()" type="color" id="colorInput">
+        <div class="canvas-settings">
+            <div class="font-container">
+                <button onclick="onIncreaseFont()" class="font-size increase-font">A+</button>
+                <button onclick="onDecreaseFont()" class="font-size decrease-font">A-</button>
+            </div>
+            <input class="text-input" oninput="drawText()" type="text" id="textInput" placeholder="Enter Text">
+            <input class="color-input" oninput="onChangeColor()" type="color" id="colorInput">
+            <div class="out-source">
+                <div class="share-container">
+                    <a class="share" onclick="onUploadImg()">
+                        Share on Facebook!
+                    </a>
+                </div>
+                <div class="download-container">
+                    <a href="#" class="download" onclick="downloadCanvas(this)" download="file-name">Download</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -46,7 +62,7 @@
         <img data-img-id="17" src="imgs/17.jpg" onclick="onSelectImg(this)" />
         <img data-img-id="18" src="imgs/18.jpg" onclick="onSelectImg(this)" />
     </section>
-
+    <script src="js/upload-download-share.js"></script>
     <script src="js/memeService.js"></script>
     <script src="js/memeController.js"></script>
 </body>

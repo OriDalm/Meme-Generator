@@ -8,12 +8,12 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     createMeme()
     console.log(gMeme);
+ 
+    
     // gElCanvas.addEventListener("click", onCanvasClick)
 }
 
 function renderCanvas() {
-    gCtx.fillStyle = '#858181'
-    gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height)
 
     if (gMeme.selectedImgId !== null) {
         var img = new Image()
@@ -41,14 +41,9 @@ function onChangeColor() {
     var colorBox = document.getElementById('colorInput')
     gColor = colorBox.value
     gMeme.lines[gMeme.selectedLineIdx].color = gColor
-    onSetLine()
+    renderCanvas()
 
 }
-
-// function onSetLine() {
-//     gMeme.lines[gMeme.selectedLineIdx].txt = ''
-//     renderCanvas()
-// }
 
 function drawText() {
     var textBox = document.getElementById('textInput')
@@ -58,11 +53,24 @@ function drawText() {
     renderCanvas()
 }
 
+function onIncreaseFont() {
+    gMeme.lines[gMeme.selectedLineIdx].size++
+    renderCanvas()
+}
+
+function onDecreaseFont() {
+    gMeme.lines[gMeme.selectedLineIdx].size--
+    renderCanvas()
+}
+
 function onSetLine() {
-    gCtx.fillStyle = gMeme.lines[gMeme.selectedLineIdx].color
+    var colorBox = document.getElementById('colorInput')
+    gColor = colorBox.value
+
+    gCtx.fillStyle = gColor
     gCtx.font = gMeme.lines[gMeme.selectedLineIdx].size + 'px Arial'
     gCtx.textAlign = 'center'
-    gCtx.fillText (gMeme.lines[gMeme.selectedLineIdx].txt, canvas.width / 2, canvas.height - gMeme.lines[gMeme.selectedLineIdx].size)
+    gCtx.fillText (gMeme.lines[gMeme.selectedLineIdx].txt, canvas.width / 2, gMeme.lines[gMeme.selectedLineIdx].size + 35)
 }
 
 function changeSize(x, y, size) {
@@ -80,5 +88,5 @@ function displayCanvas() {
     const elImageContainer = document.querySelector('.img-container')
     elImageContainer.style.display = 'none'
     const elCanvasContainer = document.querySelector('.canvas-container')
-    elCanvasContainer.style.display = 'block'
+    elCanvasContainer.style.display = 'flex'
 }

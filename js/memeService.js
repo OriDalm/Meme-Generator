@@ -28,11 +28,15 @@ function createMeme() {
         selectedLineIdx: 0,
         lines: [
             {
-                
                 txt: '',
                 size: 20,
                 color: 'red'
-            }
+            },
+            {
+                txt: '',
+                size: 20,
+                color: 'red'
+             }
         ]
     }
 }
