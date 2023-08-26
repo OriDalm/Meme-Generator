@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box;
+    font-family: poppins;
+}
+
+body {
+    margin: 0;
+    background-color: #22252c;
+}
+
+.saved-memes {
+    display: none;
+}  
+
+body.rtl {
+    direction: rtl;
+}

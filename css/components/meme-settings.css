@@ -1,0 +1,161 @@
+.canvas-settings {
+    border-radius: 1.875em;
+    height: 550px;
+    width: 525px;
+    background-color: #383b42;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 50px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.download-container {
+    border-radius: 15px;
+    box-shadow: 1px 6px 0 #632687, inset 0 5px 0 #ffffff49;
+    background-color: #8f44bb;
+}
+
+.download {
+    font-size: 1.3125em;
+    color: white;
+    text-decoration: none;
+}
+
+.canvas-container .download-container a {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 200px ;
+    min-height: 51px;
+
+    cursor: pointer;
+}
+
+.share-container {
+    border-radius: 15px;
+
+    box-shadow: 1px 6px 0 #318164, inset 0 5px 0 #7eceb0;
+    background-color: #46b98f;
+}
+
+.share {
+    font-size: 1.3125em;
+    color: white;
+    text-decoration: none;
+}
+
+.canvas-container .share-container a {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 150px ;
+    min-height: 51px;
+
+    cursor: pointer;
+}
+
+.text-input {
+    width: 445px;
+    height: 57px;
+    border-radius: 28px;
+    border: none;
+    
+}
+
+.out-source {
+    display: flex;
+    gap: 10px;
+}
+
+.font-size {
+    cursor: pointer;
+    border: none;
+    width: 55px;
+    height: 51px;
+    border-radius: 10px;
+    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.144), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+    font-weight: 900;
+    font-size: 2em;
+}
+
+.save {
+    box-shadow: 1px 6px 0 #165c9c, inset 0 5px 0 #ffffff49;
+    background-color: #1e7cd3;
+    border-radius: 15px;
+    width: 140px;
+    height: 50px;
+    border: none;
+    color: white;
+    font-size: 1.3125em;
+    cursor: pointer;
+}
+
+.add-line {
+    width: 58px;
+    height: 58px;
+    background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
+    box-shadow: 1px 5px 0 #015d33, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+    border-radius: 7px;
+    border: none;
+    font-size: 2em ;
+    color: white;
+    cursor: pointer;
+
+}
+
+.fa-arrow-up-long ,
+.fa-arrow-down-long {
+    color: rgb(255, 255, 255);
+    font-size: 1.5em;
+}
+
+.switch-line {
+    background-image: linear-gradient(-38deg, #66c4dc 0%, #0c98bb 100%);
+    box-shadow: 1px 5px 0 #048b972d, inset 0 5px 0 rgba(255, 255, 255, 0.253);
+    width: 58px;
+    height: 58px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+
+}
+
+.color-container-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    text-align: center;
+    vertical-align: auto;
+    border-radius: 10px; 
+}
+
+.lines-settings {
+    display: flex;
+    gap: 5px;
+}
+
+.color-input {
+    opacity: 0;
+    height: 66px;
+    width: 66px;
+    position: absolute;
+    z-index: 2;
+}
+
+.fa-brush {
+    font-size: 1.5em;
+    width: 66px;
+    height: 66px;
+    position: relative;
+    z-index: 1;
+    padding-top: 20px;
+}
+
+.text-input::placeholder {
+    font-size: 20px;
+}

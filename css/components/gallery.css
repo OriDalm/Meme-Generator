@@ -1,0 +1,40 @@
+.main-container {
+    display: grid;
+    grid-template-columns: 200px 1100px 200px ;
+
+}
+
+.img-container {
+    margin-top: 100px;
+    gap: 30px;
+    display: grid;
+    grid-template-columns: 268px 268px 268px 268px;
+}
+
+img {
+    width: 268px;
+    height: 173px;
+    border-radius: 10px;
+    cursor: pointer
+}
+
+.search-container {
+    position: sticky;
+    display: block;
+    margin-bottom: 50px;
+    
+}
+
+.search {
+   width: 605px;
+   height: 58px; 
+   border-radius: 29px;
+   background-color: #383b42;
+   margin-inline-start: 215px;
+   border: none;
+}
+
+.file-input {
+    width: 268px;
+    border: black 1px solid;
+}

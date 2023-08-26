@@ -2,66 +2,95 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/setup/styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Meme Generator</title>
 </head>
 
 <body onload="onInit()">
     <header class="main-header">
         <nav class="nav-container">
-            <div class="logo">Logo</div>
-            <a onclick="displayImage()" class="gallery">Gallery</a>
+            <div data-trans="logo" class="logo">Meme Generator</div>
+            <button data-trans="gallery" onclick="displayImage()" class="gallery">Gallery</button>
+            <button data-trans="saved" onclick="displaySaved()" class="saved">Saved</button>
+            <select onchange="onSetLang(this.value)">
+                <option value="en">English</option>
+                <option value="he">עברית</option>
+            </select>
         </nav>
-
     </header>
 
-    <div class="canvas-container">
+    <section class="saved-memes">
 
-        <canvas id="canvas" width="500" height="500"></canvas>
+    </section>
+
+    <div class="main-container">
+        <section class="search-container">
+            <input data-trans="search-placeholder" oninput="onSearch()" placeholder="Search" class="search" type="search" name="" id="">
+        </section>
+        
+
+        
+        <section class="img-container">
+            <input type="file" id="uploadImageInput" class="file-input btn" name="image" onchange="onImgInput(event)" accept="image/*" />
+            <img data-img-id="1" src="imgs/1.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="2" src="imgs/2.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="3" src="imgs/3.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="4" src="imgs/4.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="5" src="imgs/5.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="6" src="imgs/6.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="7" src="imgs/7.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="8" src="imgs/8.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="9" src="imgs/9.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="10" src="imgs/10.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="11" src="imgs/11.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="12" src="imgs/12.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="13" src="imgs/13.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="14" src="imgs/14.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="15" src="imgs/15.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="16" src="imgs/16.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="17" src="imgs/17.jpg" onclick="onSelectImg(this)" />
+            <img data-img-id="18" src="imgs/18.jpg" onclick="onSelectImg(this)" />
+    </section>
+</div>
+
+    <div class="canvas-container">
+        
+        <canvas class="main-canvas" id="canvas" width="500" height="500"></canvas>
         <div class="canvas-settings">
+            <input data-trans="add-text-placeholder" class="text-input" oninput="drawText()" type="text" id="textInput" placeholder="Add Text Here">
+
+            <div class="lines-settings">
+                <button onclick="addNewLine()" class="add-line">+</button>
+                <button onclick="switchLine()" class="switch-line"><i class="fa-solid fa-arrow-up-long"></i><i class="fa-solid fa-arrow-down-long"></i></button>
+            </div>
+
             <div class="font-container">
                 <button onclick="onIncreaseFont()" class="font-size increase-font">A+</button>
                 <button onclick="onDecreaseFont()" class="font-size decrease-font">A-</button>
             </div>
-            <input class="text-input" oninput="drawText()" type="text" id="textInput" placeholder="Enter Text">
-            <input class="color-input" oninput="onChangeColor()" type="color" id="colorInput">
+            <div class="color-container-main">
+                <i class="fa-solid fa-brush"></i>
+                    <input class="color-input" oninput="onChangeColor()" type="color" id="colorInput">
+                </button>
+            </div>
             <div class="out-source">
                 <div class="share-container">
-                    <a class="share" onclick="onUploadImg()">
-                        Share on Facebook!
-                    </a>
+                    <a data-trans="share" class="share" onclick="onUploadImg()"><span><i class="fa-solid fa-share"></i> Share</span></a>
                 </div>
                 <div class="download-container">
-                    <a href="#" class="download" onclick="downloadCanvas(this)" download="file-name">Download</a>
+                    <a data-trans="download" href="#" class="download" onclick="downloadCanvas(this)" download="file-name"><span><i class="fa-solid fa-download"></i> Download</span></a>
+                </div>
+                <div>
+                    <button data-trans="save" onclick="saveMeme()" class="save"><span><i class="fa-solid fa-floppy-disk"></i> Save</span</button>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <section class="img-container">
-        <h3>Select an image</h3>
-        <img data-img-id="1" src="imgs/1.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="2" src="imgs/2.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="3" src="imgs/3.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="4" src="imgs/4.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="5" src="imgs/5.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="6" src="imgs/6.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="7" src="imgs/7.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="8" src="imgs/8.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="9" src="imgs/9.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="10" src="imgs/10.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="11" src="imgs/11.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="12" src="imgs/12.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="13" src="imgs/13.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="14" src="imgs/14.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="15" src="imgs/15.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="16" src="imgs/16.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="17" src="imgs/17.jpg" onclick="onSelectImg(this)" />
-        <img data-img-id="18" src="imgs/18.jpg" onclick="onSelectImg(this)" />
-    </section>
+    <script src="https://kit.fontawesome.com/bcf331955b.js" crossorigin="anonymous"></script>
+    <script src="js/i18n.service.js"></script>
+    <script src="js/util-service.js"></script>
     <script src="js/upload-download-share.js"></script>
     <script src="js/memeService.js"></script>
     <script src="js/memeController.js"></script>
