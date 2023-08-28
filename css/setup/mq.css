@@ -72,7 +72,7 @@
 @media (min-width: 1060px) {
     .main-gallery {
         grid-template-columns: minmax(200px, 1fr) minmax(auto, 1060px) minmax(200px, 1fr);
-
+        place-items: center;
     }
 
     .img-container,

@@ -107,7 +107,7 @@ function displayImage() {
     const elCanvasContainer = document.querySelector('.canvas-container')
     elCanvasContainer.style.display = 'none'
     const elMainContainer = document.querySelector('.main-container')
-    elMainContainer.style.display = 'grid'
+    elMainContainer.style.display = 'block'
     elSaved.style.display = 'none'
 
 }
@@ -226,13 +226,16 @@ function renderImg(img) {
 }
 
 function onSearch() {
-    const searchValue = document.querySelector('.search').value.toLowerCase()
+    const selectedOption = document.getElementById('filterOptions').value;
+    const searchValue = document.querySelector('.search').value.toLowerCase();
 
     const filteredImages = gImgs.filter(image => {
-        return image.keywords.some(keyword => keyword.includes(searchValue))
-    })
+        const matchesOption = selectedOption === 'all' || image.keywords.includes(selectedOption);
+        const matchesSearch = image.keywords.some(keyword => keyword.includes(searchValue));
+        return matchesOption && matchesSearch;
+    });
 
-    displayFilteredImages(filteredImages)
+    displayFilteredImages(filteredImages);
 }
 
 function displayFilteredImages(images) {

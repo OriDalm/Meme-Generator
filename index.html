@@ -32,6 +32,16 @@
 
         <div class="main-container">
             <section class="search-container">
+                <select id="filterOptions" onchange="onSearch()">
+                    <option value="all">All</option>
+                    <option value="baby">baby</option>
+                    <option value="animal">Animal</option>
+                    <option value="funny">Funny</option>
+                    <option value="president">President</option>
+                    <option value="television">Television</option>
+                    <option value="angry">Angry</option>
+                    <option value="cute">Cute</option>
+                </select>
                 <input data-trans="search-placeholder" oninput="onSearch()" placeholder="Search" class="search"
                     type="search" name="" id="">
             </section>

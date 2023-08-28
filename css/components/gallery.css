@@ -2,10 +2,12 @@
     display: grid;
     margin: 0;
 
+
 }
 
 .main-container {
     grid-column: 2;
+
 }
 
 .img-container {
