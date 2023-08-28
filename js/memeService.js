@@ -2,8 +2,8 @@
 let gMeme
 var gSelectedLineIdx
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
-var gImgs = [
-    { id: 1, url: 'imgs/1.jpg', keywords: ['funny', 'trump'] },
+const gImgs = [
+    { id: 1, url: 'imgs/0.jpg', keywords: ['funny', 'trump'] },
     { id: 2, url: 'imgs/2.jpg', keywords: ['cute', 'dog'] },
     { id: 3, url: 'imgs/3.jpg', keywords: ['baby', 'dog'] },
     { id: 4, url: 'imgs/4.jpg', keywords: ['cute', 'cat'] },
@@ -20,24 +20,22 @@ var gImgs = [
     { id: 15, url: 'imgs/15.jpg', keywords: ['angry', 'man'] },
     { id: 16, url: 'imgs/16.jpg', keywords: ['star trek ', 'funny'] },
     { id: 17, url: 'imgs/17.jpg', keywords: ['putin', 'funny'] },
-    { id: 18, url: 'imgs/18.jpg', keywords: ['toy story', 'woody'] },
+    { id: 18, url: 'imgs/18.jpg', keywords: ['toy story', 'woody'] }
 ]
+let gCurrLines = 1
+let gCurrFrames = 0
 
-function createMeme(center) {
+
+function createMeme(pos) {
     gMeme = {
+        dataURL: null,
         selectedImgId: 0,
         selectedLineIdx: 0,
         lines: [
             {
-                pos: { ...center },
+                id: 1,
+                pos,
                 txt: 'Add Text Here',
-                size: 40,
-                color: 'white',
-                isDrag: false
-            },
-            {
-                pos: { ...center },
-                txt: '',
                 size: 40,
                 color: 'white',
                 isDrag: false
@@ -54,17 +52,16 @@ function getPos() {
     return gMeme.lines[gMeme.selectedLineIdx].pos
 }
 
-function isTextClicked(clickedPos) {
-    const selectedLine = gMeme.lines[gMeme.selectedLineIdx]
-    const canvasPos = { x: gElCanvas.width / 2, y: selectedLine.pos.y }
-    const textSize = gCtx.measureText(selectedLine.txt).width
+function getIsDrag() {
+    return gMeme.lines[gMeme.selectedLineIdx].isDrag
+}
 
-    return (
-        clickedPos.x >= canvasPos.x - textSize / 2 &&
-        clickedPos.x <= canvasPos.x + textSize / 2 &&
-        clickedPos.y >= canvasPos.y - selectedLine.size &&
-        clickedPos.y <= canvasPos.y
-    )
+function isTextClicked(clickedPos) {
+    const { pos } = gMeme.lines[gMeme.selectedLineIdx]
+    console.log('service pos', pos);
+
+    const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
+    return distance <= gMeme.lines[gMeme.selectedLineIdx].size
 }
 
 function setTextDrag(isDrag) {
@@ -91,4 +88,20 @@ function loadCanvas() {
     img.onload = function () {
         gCtx.drawImage(img, 0, 0)
     }
+}
+
+function addNewLine(pos, txt = 'Add Text Here') {
+    const newTxt = { txt, color: 'white', size: 40, pos, isDrag: false }
+    gMeme.lines.push(newTxt)
+    gCurrLines += 1
+}
+
+function drawTextFrame(centerX, bottomY, textWidth, textHeight) {
+
+
+    gCtx.strokeStyle = 'black';
+    gCtx.lineWidth = 1;
+
+    gCtx.strokeRect(centerX - textWidth / 2 - 10, bottomY - textHeight, textWidth + 20, textHeight);
+
 }

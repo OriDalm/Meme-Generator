@@ -1,40 +1,69 @@
-.main-container {
+.main-gallery {
     display: grid;
-    grid-template-columns: 200px 1100px 200px ;
+    margin: 0;
 
+}
+
+.main-container {
+    grid-column: 2;
 }
 
 .img-container {
-    margin-top: 100px;
-    gap: 30px;
+    gap: 10px;
     display: grid;
-    grid-template-columns: 268px 268px 268px 268px;
+    place-self: center;
 }
 
 img {
-    width: 268px;
+    width: 200px;
     height: 173px;
     border-radius: 10px;
     cursor: pointer
 }
 
+img:hover {
+    opacity: 0.6;
+}
+
 .search-container {
     position: sticky;
     display: block;
-    margin-bottom: 50px;
-    
+    grid-row: 2;
+    margin-bottom: 20px;
 }
 
 .search {
-   width: 605px;
-   height: 58px; 
-   border-radius: 29px;
-   background-color: #383b42;
-   margin-inline-start: 215px;
-   border: none;
+    width: 605px;
+    height: 58px;
+    border-radius: 29px;
+    background-color: #383b42;
+    border: none;
 }
 
 .file-input {
-    width: 268px;
+    width: 100%;
     border: black 1px solid;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-container {
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    width: 200px;
+    cursor: pointer;
+}
+
+.saved-memes {
+    display: none;
+    grid-column: 2;
+    gap: 10px;
+    place-self: center;
+}
+
+input[type=file]::-webkit-file-upload-button {
+    cursor: pointer;
 }

@@ -4,19 +4,16 @@ var gElCanvas
 var gColor
 let gStartPos
 let isDragging = false
-let initialMousePos = { x: 0, y: 0 }
+let initialMousePos
 
 function onInit() {
-   
-
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     addMouseListeners()
-    const center = { x: gElCanvas.width / 2, y: 75 }
-    createMeme(center)
+    const textCords = { x: 198, y: -64 }
+    createMeme(textCords)
     console.log(gMeme)
     console.log(gMeme.lines[gMeme.selectedLineIdx].pos)
-
 }
 
 function addMouseListeners() {
@@ -52,6 +49,7 @@ function onSelectImg(elImg) {
     renderCanvas()
     displayCanvas()
 
+
 }
 
 function onChangeColor() {
@@ -86,21 +84,22 @@ function setLine(line, idx) {
     gCtx.fillStyle = line.color
     gCtx.font = line.size + 'px Impact'
     gCtx.textAlign = 'center'
-
     const canvasHeight = gElCanvas.height
-    const lineHeight = line.size + 35
+    var lineHeight = line.size + 35
     const bottomY = canvasHeight - (lineHeight / 2)
+    const centerX = canvas.width / 2;
+    const textMetrics = gCtx.measureText(line.txt);
+    const textWidth = textMetrics.width;
+    const textHeight = line.size + 10;
 
+    gCtx.fillStyle = line.color;
+    gCtx.font = line.size + 'px Impact';
+    gCtx.textAlign = 'center';
 
     gCtx.fillText(line.txt, canvas.width / 2, idx === 0 ? lineHeight : bottomY)
     gCtx.strokeText(line.txt, canvas.width / 2, idx === 0 ? lineHeight : bottomY)
-
-    // if (idx === gSelectedLineIdx) {
-    //     gCtx.strokeStyle = 'black'
-    //     gCtx.lineWidth = 1
-    //     gCtx.strokeRect(20, bottomY - line.size, canvas.width - 40, line.size + 10) 
-
-    // }
+    console.log(gCurrFrames);
+    // drawTextFrame(centerX, lineHeight + 10, textWidth, textHeight)
 }
 
 function displayImage() {
@@ -119,9 +118,7 @@ function displayCanvas() {
     elMainContainer.style.display = 'none'
     const elCanvasContainer = document.querySelector('.canvas-container')
     elSaved.style.display = 'none'
-    elCanvasContainer.style.display = 'flex'
-
-    
+    elCanvasContainer.style.display = 'grid'
 }
 
 function displaySaved() {
@@ -130,7 +127,7 @@ function displaySaved() {
     const elSaved = document.querySelector('.saved-memes')
     elMainContainer.style.display = 'none'
     elCanvasContainer.style.display = 'none'
-    elSaved.style.display = 'block'
+    elSaved.style.display = 'grid'
     const savedMemes = JSON.parse(localStorage.getItem('savedMemes')) || []
     elSaved.innerHTML = ''
 
@@ -148,73 +145,59 @@ function displaySaved() {
     })
 }
 
-
-
-function addNewLine() {
-    if (gSelectedLineIdx === 1) return
-    gMeme.selectedLineIdx = gMeme.lines.length - 1
-    if (gMeme.lines[gMeme.selectedLineIdx].txt !== '') return
-    gSelectedLineIdx = 1
-    const elTextBox = document.getElementById('textInput')
-    elTextBox.value = ''
-    gMeme.lines[gMeme.selectedLineIdx].txt = 'Add Text Here'
-
-
+function onAddNewLine() {
+    addNewLine()
+    switchLine()
     renderCanvas()
 }
 
 function switchLine() {
     console.log(gMeme.selectedLineIdx)
-    if (gMeme.selectedLineIdx === 0) {
-        gMeme.selectedLineIdx = 1
-        gSelectedLineIdx = 1
+    gMeme.selectedLineIdx = (gMeme.selectedLineIdx + 1) % gCurrLines
 
-    } else {
-        gMeme.selectedLineIdx = 0
-        gSelectedLineIdx = 0
-    }
     const elTextBox = document.querySelector('.text-input')
-    elTextBox.value = gMeme.lines[gMeme.selectedLineIdx].txt
+    if (gMeme.lines[gMeme.selectedLineIdx].txt === 'Add Text Here') elTextBox.value = ''
+    else elTextBox.value = gMeme.lines[gMeme.selectedLineIdx].txt
 
-
+    renderCanvas()
 }
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    if (isTextClicked(pos)) {
-        isDragging = true
-        initialMousePos = pos
-        setTextDrag(true)
-        document.body.style.cursor = 'grabbing'
-    }
+    console.log(pos);
+    if (!isTextClicked(pos)) return
+    setTextDrag(true)
+    initialMousePos = pos
+    document.body.style.cursor = 'grabbing'
+
 }
 
 function onMove(ev) {
+    const isDrag = gMeme.lines[gMeme.selectedLineIdx].isDrag
+    console.log(isDrag);
+    if (!isDrag) return
+    console.log('moving')
     const pos = getEvPos(ev)
-    console.log(isDragging)
-    if (isDragging) {
-        console.log('moving')
-        const dx = pos.x - initialMousePos.x
-        const dy = pos.y - initialMousePos.y
-        moveText(dx, dy)
-        initialMousePos = pos
-        renderCanvas()
-    }
+
+    const dx = pos.x - initialMousePos.x
+    const dy = pos.y - initialMousePos.y
+    moveText(dx, dy)
+
+    initialMousePos = pos
+    renderCanvas()
 }
 
 function onUp() {
-    if (isDragging) {
-        isDragging = false
-        setTextDrag(false)
-        document.body.style.cursor = 'default'
+    setTextDrag(false)
+    document.body.style.cursor = 'default'
 
-    }
 }
+
 
 function getEvPos(ev) {
     let pos = {
-        x: ev.offsetX,
-        y: ev.offsetY,
+        x: ev.offsetX - gElCanvas.getBoundingClientRect().left,
+        y: ev.offsetY - gElCanvas.getBoundingClientRect().top
     }
     return pos
 }
@@ -227,11 +210,11 @@ function loadImageFromInput(ev, onImageReady) {
     const reader = new FileReader()
 
     reader.onload = function (event) {
-        let img = new Image() 
-        img.src = event.target.result 
+        let img = new Image()
+        img.src = event.target.result
         img.onload = () => onImageReady(img)
     }
-    reader.readAsDataURL(ev.target.files[0]) 
+    reader.readAsDataURL(ev.target.files[0])
 }
 
 function renderImg(img) {
@@ -253,15 +236,15 @@ function onSearch() {
 }
 
 function displayFilteredImages(images) {
-    const imgContainer = document.querySelector('.img-container')
-    imgContainer.innerHTML = ''
+    const elImgContainer = document.querySelector('.img-container')
+    elImgContainer.innerHTML = ''
 
     images.forEach(image => {
-        const imgElement = document.createElement('img')
-        imgElement.src = image.url
-        imgElement.setAttribute('data-img-id', image.id)
-        imgElement.onclick = () => onSelectImg(imgElement)
-        imgContainer.appendChild(imgElement)
+        const elImgElement = document.createElement('img')
+        elImgElement.src = image.url
+        elImgElement.setAttribute('data-img-id', image.id)
+        elImgElement.onclick = () => onSelectImg(elImgElement)
+        elImgContainer.appendChild(elImgElement)
     })
 }
 
@@ -272,3 +255,61 @@ function onSetLang(lang) {
     doTrans()
 
 }
+
+function getTxtByPos(pos) {
+    const currMeme = getMeme()
+    let index = false
+    currMeme.txt.forEach((txt, i) => {
+        const txtPosX = txt.pos.x + gElCanvas.width
+        const txtPosY = txt.pos.x * gElCanvas.height / 5 + txt.id + 20
+        if (pos.x < txtPosX && pos.y < txtPosY && pos.y > txtPosY - 57) index = i + 1
+
+    })
+    return index
+}
+
+function getRandomMeme() {
+    const imgUrls = [
+        'imgs/0.jpg',
+        'imgs/2.jpg',
+        'imgs/3.jpg',
+        'imgs/4.jpg',
+        'imgs/5.jpg',
+        'imgs/6.jpg',
+        'imgs/7.jpg',
+        'imgs/8.jpg',
+        'imgs/9.jpg',
+        'imgs/10.jpg',
+        'imgs/11.jpg',
+        'imgs/12.jpg',
+        'imgs/13.jpg',
+        'imgs/14.jpg',
+        'imgs/15.jpg',
+        'imgs/16.jpg',
+        'imgs/17.jpg',
+        'imgs/18.jpg',
+    ];
+    const randomIndex = Math.floor(Math.random() * imgUrls.length);
+    const selectedImgUrl = imgUrls[randomIndex];
+
+    const img = new Image();
+    img.src = selectedImgUrl;
+    img.onload = () => {
+        gMeme.selectedImgId = randomIndex + 1; // Update the selected image ID
+        renderCanvas(img); // Render the randomly selected image
+        displayCanvas();
+    };
+    getRandomItem(randWords)
+}
+const randWords = ['That moment when','mood:', 'tell me more', 'cheers',
+'It will be a short lesson today', 'javascript', 'css','HTML','cats','dogs','What would you have done?' ]
+
+function getRandomItem(arr) {
+
+    const randomIndex = Math.floor(Math.random() * arr.length);
+
+    const item = arr[randomIndex];
+    gMeme.lines[gMeme.selectedLineIdx].txt = item
+    return item
+}
+

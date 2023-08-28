@@ -32,6 +32,10 @@ const gTrans = {
     'search-placeholder': {
         en: 'Search',
         he: 'חיפוש',
+    },
+    flexible: {
+        en: 'i\'m Flexible',
+        he: 'אני גמיש',
     }
 }
 

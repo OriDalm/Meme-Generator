@@ -6,12 +6,15 @@
 body {
     margin: 0;
     background-color: #22252c;
+
 }
 
-.saved-memes {
-    display: none;
-}  
 
 body.rtl {
     direction: rtl;
+}
+
+canvas:not(.main-canvas) {
+    width: 200px;
+    height: 173px;
 }
